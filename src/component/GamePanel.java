@@ -6,6 +6,7 @@ package component;
 
 import KeyEvent.KeyHandler;
 import entity.Player;
+import entity.TileManager;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -19,22 +20,22 @@ public final class GamePanel extends JPanel implements Runnable {
     final int originalTitleSize = 16;
     final int scale = 3;
     public final int titleSize = originalTitleSize * scale;
-    final int maxScreenCol = 16;
-    final int maxScreenRow = 12;
-    final int screenWidth = titleSize * maxScreenCol;
-    final int screenHight = titleSize * maxScreenRow;
+    public final int maxScreenCol = 16;
+    public final int maxScreenRow = 12;
+    public final int screenWidth = titleSize * maxScreenCol;
+    public final int screenHight = titleSize * maxScreenRow;
 
     //set player position
-    int playerX = 100;
-    int playerY = 100;
-    int playerSpeed = 4;
-
+//    int playerX = 100;
+//    int playerY = 100;
+//    int playerSpeed = 4;
     //Frame Per Second
     int FPS = 60;
 
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
     Player player = new Player(this, keyH);
+    TileManager tileM = new TileManager(this);
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHight));
@@ -97,6 +98,8 @@ public final class GamePanel extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+
+        tileM.draw(g2);
         player.draw(g2);
 //        g2.setColor(Color.GREEN);
 //        g2.fillRect(playerX, playerY, titleSize, titleSize);
